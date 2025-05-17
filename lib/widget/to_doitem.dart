@@ -3,8 +3,11 @@ import 'package:to_do_app/constant/color.dart';
 import 'package:to_do_app/model/todo.dart';
 
 class ToDoItem extends StatelessWidget {
-  const ToDoItem({super.key, required this.todo});
+  const ToDoItem({super.key, required this.todo, this.onToDoChanged, this.onDeleteItem});
   final ToDo todo;
+  final onToDoChanged;
+  final onDeleteItem;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +17,7 @@ class ToDoItem extends StatelessWidget {
       ListTile(
         onTap: (){
           print('Clicked on checkbox');
+          onToDoChanged(todo);
         },
         shape:RoundedRectangleBorder(
           borderRadius:BorderRadius.circular(20),

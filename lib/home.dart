@@ -3,8 +3,14 @@ import 'package:to_do_app/constant/color.dart';
 import '../model/todo.dart';
 import 'package:to_do_app/widget/to_doitem.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
    Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   final todosList = ToDo.todoList();
 
   @override
@@ -52,7 +58,10 @@ class Home extends StatelessWidget {
                         ),),
                       ),
                       for (ToDo todo in todosList)
-                      ToDoItem(todo:todo ),
+                      ToDoItem(todo:todo,
+                      onToDoChanged:_handleToDoChange ,
+                      onDeleteItem: (){},
+                       ),
                       
            
                     ],
@@ -61,12 +70,74 @@ class Home extends StatelessWidget {
            
               ],
             )),
-            
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Row(
+                children: [
+                  Expanded(child: 
+                  Container(
+                    margin: EdgeInsets.only(
+                      bottom: 20,
+                      right: 20,
+                      left: 20
+                    ),
+                    decoration: BoxDecoration(
+                      color: primaryColor,
+                      boxShadow: [BoxShadow(
+                        color:Colors.grey,
+                        offset: Offset(0.0,0.0),
+                        blurRadius: 10,
+                        spreadRadius: 0
+                      )],
+                      borderRadius: BorderRadius.circular(5,
+                      )
+
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20,right: 20),
+                      child: TextField(
+                        
+                        decoration: InputDecoration(
+                          hintText: 'Add a new todo item',
+                          border: InputBorder.none,
+                        
+                        ),
+                      ),
+                    ),
+                  )),
+                  Container(
+                    margin: EdgeInsets.only(
+                      bottom: 20,
+                      right: 20
+                    ),
+                    child: ElevatedButton(onPressed: (){},
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: Size(60, 60),
+                      elevation: 10
+                       
+                    ),
+                    child: Text('+',
+                    style: TextStyle(
+                      fontSize: 40),
+                      
+                      )),
+                  )
+                ],
+              ),
+            )
          ],
        )
     );
   }
+  void _handleToDoChange (ToDo todo){
+    setState(() {
+      todo.isDone =!todo.isDone;
+    });
+  }
 }
+
+
+
 Widget SearchBox (){
   return Container(
         child: Container(
@@ -98,3 +169,5 @@ Widget SearchBox (){
             )
        );
 }
+
+
