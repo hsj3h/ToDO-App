@@ -32,8 +32,8 @@ class ToDoItem extends StatelessWidget {
           todo.isDone? Icons.check_box : Icons.check_box_outline_blank,
         color: secondaryColor,),
         title: Text(todo.todoText!,style: TextStyle(
-          fontSize: 16,
-          color: accentColor,
+          fontSize: 20,
+          color: textColor,
           decoration: todo.isDone? TextDecoration.lineThrough : null,
         ),
         
@@ -55,7 +55,10 @@ class ToDoItem extends StatelessWidget {
 
           
             onPressed: (){
-              print('delete');
+              // print('delete');
+              onDeleteItem(todo.id);
+
+              
             }, icon: Icon(Icons.delete)),
         ),
       ),
