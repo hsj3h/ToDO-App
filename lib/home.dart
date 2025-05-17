@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/constant/color.dart';
+import '../model/todo.dart';
 import 'package:to_do_app/widget/to_doitem.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key});
+   Home({super.key});
+  final todosList = ToDo.todoList();
 
   @override
   Widget build(BuildContext context) {
@@ -28,34 +30,40 @@ class Home extends StatelessWidget {
       backgroundColor: backgroundColor,
       
        ),
-       body:Container
-       (padding: EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 15
-       ),
-        child: Column(
-          children: [
-            SearchBox(),
-            Expanded(
-              child: ListView(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 50,bottom: 20),
-                    child: Text("All todos",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500
-                    ),),
+       body:Stack(
+         children: [
+           Container
+           (padding: EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 15
+           ),
+            child: Column(
+              children: [
+                SearchBox(),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top: 50,bottom: 20),
+                        child: Text("All todos",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500
+                        ),),
+                      ),
+                      for (ToDo todo in todosList)
+                      ToDoItem(todo:todo ),
+                      
+           
+                    ],
                   ),
-                  ToDoItem(),
-                  
-
-                ],
-              ),
-            )
-
-          ],
-        ))
+                )
+           
+              ],
+            )),
+            
+         ],
+       )
     );
   }
 }
